@@ -34,12 +34,10 @@
       <th>操作</th>
     </tr>
     <?php
-      include "db.php";
-      $sql="select * from stu";
-      $result=$db->query($sql);
+      include "public.php";
+      $sql="select * from student";
+      $result=$aa->query($sql);
       while ($row=$result->fetch_assoc()){
-
-
     ?>
 
           <tr>
@@ -59,4 +57,3 @@
   <a href="" class="add">+</a>
 </body>
 </html>
-
