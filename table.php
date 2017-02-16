@@ -38,7 +38,7 @@
         </tr>
         <?php
             $sql="select * from stu";
-            $result=$data->query($sql);
+            $result=$db->query($sql);
             while($row=$result->fetch_assoc()){
         ?>
              <tr>
