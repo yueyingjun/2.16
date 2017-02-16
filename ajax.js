@@ -1,60 +1,60 @@
-function ajax(obj) {
-    if(typeof obj!=="object"){
-        console.error("请输入正确的参数");
-        return;
-    }
-    if (typeof obj.url!=="string")  {
-        console.error("请输入正确的地址");
-        return;
-    }
-
-    var url=obj.url;
-    var data=obj.data||"";
-    if(typeof data=="object"){
-        var str="";
-        for(var i in data){
-            str+=i+"="+data[i]+"&";
-        }
-        data=str.slice(0,-1);
-    }
-
-    var type=obj.type||"get";
-    var bool=obj.bool===undefined?true:obj.bool;
-    var datatype=obj.dataType||"text";
-
-    var succ=obj.success;
-    var error=obj.error;
-    var xml=new XMLHttpRequest();
-    xml.onreadystatechange=function(){
-        if(xml.readyState==4){
-            if (xml.status==200){
-                var result;
-                if(datatype==="xml"){
-                    result=xml.responseXML;
-                }else{
-                    result=xml.response;
-                }
-                succ(result)
-            }else if(xml.status==404){
-                var info="页面未找到";
-                error(info);
-            }
-        }
-    }
-    if (type=="get"){
-        xml.open(type,url+"?"+data,bool);
-        if(datatype!="xml") {
-            xml.responseType = datatype;
-        }
-        xml.send();
-    }
-    if (type=="post"){
-        xml.open(type,url,bool);
-        xml.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-        if(datatype!="xml") {
-            xml.responseType = datatype;
-        }
-        xml.send(data)
-    }
-
+function ajax(obj){
+	var url=obj.url;
+	var type=obj.type||"get";
+	var dataType=obj.dataType||"text";
+	var success=obj.success;
+	var error=obj.error;
+	var data="";
+	switch(typeof(obj.data)){
+		case "undefined":
+		break;
+		case "object":
+			for(var i in obj.data){
+				data+=i+"="+obj.data[i]+"&";
+			}
+			data=data.slice(0,-1);
+		break;
+		case "string":
+			data=obj.data;
+		break;
+	}
+	
+	var ajax=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	if(type=="get"){
+		ajax.open("get",url+"?"+data);
+		ajax.send(null);
+	}else if(type=="post"){
+		ajax.open("post",url);
+		ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		ajax.send(data);
+	}
+	ajax.onreadystatechange=function(){
+		if(ajax.readyState==4){
+			if(ajax.status==200){
+				var result;
+				switch(dataType){
+					case "xml":
+						result=ajax.responseXML;
+					break;
+					case "text": 
+						result=ajax.responseText;
+					break;
+					case "json": 
+						result=eval("("+ajax.response+")");
+					break;
+					case "document":
+						result=ajax.response;
+					break;
+				}
+				if(success){
+					success(result);
+				}
+			}else if(ajax.status==404){
+				error();
+			}else{
+				error();
+			}
+		}
+	
+	}
 }
