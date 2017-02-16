@@ -69,6 +69,9 @@
 	table.ondblclick=function(e){
 		var e=e||window.event;
 		var thisobj=e.target;
+		if(thisobj.nodeName=="TH"||thisobj.className=="del"){
+			return;
+		}
 		oldvalue=thisobj.innerHTML;
 //		console.log(oldvalue);
 //		console.log(thisobj.parentNode.id)
