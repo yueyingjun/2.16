@@ -1,11 +1,9 @@
 <?php
- include "db.php";
+ $stu=new mysqli("localhost","root","","weihaichun");
+ $stu->query("set names utf8");
  $id=$_GET["id"];
- $db->query("delete from stu where id=".$id);
- if($db->affected_rows>0){
-     echo "<script>alert('删除成功');location.href='1.php'</script>";
+ $stu->query("delete from student where id=".$id);
+ if($stu->affected_rows>0){
+     echo "<script>alert('删除成功');location.href='table.php'</script>";
  }
-
-
-
 ?>
