@@ -35,7 +35,9 @@
     </tr>
     <?php
       include "db.php";
-      $sql="select * from stu";
+    //include （或 require）语句会获取指定文件中存在的所有文本/代码/标记，并复制到使用 include 语句的文件中。
+    //包含文件很有用，可以将网站的多张页面上引用相同的 PHP、HTML 或文本中。
+      $sql="select * from study";   //显示表中的记录
       $result=$db->query($sql);
       while ($row=$result->fetch_assoc()){
 
