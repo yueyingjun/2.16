@@ -1,4 +1,4 @@
 <?php
-$db=new mysqli("localhost","root","root","w1610");
+$db=new mysqli("localhost","root","","student");
 $db->query("set names utf8");
 ?>
