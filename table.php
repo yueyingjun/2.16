@@ -8,16 +8,16 @@
   <title>Document</title>
   <style>
     table{
-      width:600px;margin:0 auto;
+      width:800px;margin:0 auto;
       border:1px solid #000;
       border-collapse: collapse;
     }
     td,th{
       border:1px solid #000;
     }
-    .add{
+    .aa{
       display: block;
-      width:598px;border:1px solid #000;
+      width:799px;border:1px solid #000;
       height:30px;
       border-top:none;text-align: center;
       line-height:30px ;margin:0 auto;
@@ -38,10 +38,7 @@
       $sql="select * from stu";
       $result=$db->query($sql);
       while ($row=$result->fetch_assoc()){
-
-
     ?>
-
           <tr>
               <td><?php echo $row["name"]?></td>
               <td><?php echo $row["age"]?></td>
@@ -49,14 +46,11 @@
               <td>
                 <a href="del.php?id=<?php echo $row['id']?>">删除</a> <a href="edit.php?id=<?php echo $row['id']?>">编辑</a></td>
           </tr>
-
     <?php
       }
       ?>
 
-
   </table>
-  <a href="" class="add">+</a>
+  <a href="" class="aa">+</a>
 </body>
 </html>
-
