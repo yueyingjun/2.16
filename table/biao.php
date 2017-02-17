@@ -44,12 +44,12 @@
 			$result=$db->query($sql);
 			while($row=$result->fetch_assoc()){
 		?>
-       <tr>
+       <tr id="<?php echo $row['id']?>">
            <td class="name"><?php echo $row["name"]?></td>
            <td class="age"><?php echo $row["age"]?></td>
            <td class="sex"><?php echo $row["sex"]?></td>
            <td class="edit"><a href="del.php?id=<?php echo $row['id']?>">删除</a>
-           <a class="bianji" href="update.php?id=<?php echo $row['id']?>">编辑</a></td>
+           <a class="bianji" id="<?php echo $row['id']?>" href="javascript:;">编辑</a></td>
        </tr>
        <?php
         }
@@ -59,24 +59,39 @@
 	<a href="add.php" class="add">+</a>
 	<script>
 		var table=document.getElementsByTagName("table")[0];
+		var flag=true;
+		var aa=1;
+		var id=0;
 		table.onclick=function(e){
 			var ev=e||window.event;
 			var obj=ev.target||ev.srcElement;
-			var aa=1;
 			if(obj.className=="bianji"){
-				e.preventDefault();
-				switch(aa){
-					case 1:
-						aa=2;
-						obj.innerHTML="确定";
-						break;
-					case 2:
-						aa=1;
-						obj.innerHTML="编辑";
-						break;
+				if(!flag){
+					return;
+				}
+				id=obj.id;
+				flag=false;
+				if(aa==1){
+					aa=2;
+					obj.innerHTML="确定";
+					obj.style.color="red";
+
+				}else{
+					aa=1;
+					obj.innerHTML="编辑";
+					obj.style.color="blue";
 				}
 			}
-			console.log(aa);
+			else if(obj.nodeName=="TD"&&obj.parentNode.id==id){
+				var input=document.createElement("input");
+				var val=obj.innerHTML;
+				input.style.cssText="width: 100%;height: 100%"
+				input.value=val;
+				console.log(input);
+				obj.innerHTML="";
+				obj.appendChild(input);
+				input.focus();
+			}
 		}
 	</script>
 </body>
