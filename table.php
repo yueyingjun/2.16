@@ -37,7 +37,7 @@
             <th>操作</th>
         </tr>
         <?php
-            $sql="select * from stu";
+            $sql="select * from person";
             $result=$db->query($sql);
             while($row=$result->fetch_assoc()){
         ?>
